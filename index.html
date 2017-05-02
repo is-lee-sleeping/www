@@ -35,8 +35,8 @@
             };
 
             fetch('https://api.isleesleeping.com')
-                .then( response => response.ok && response.json() )
-                .then( LEE => {
+                .then(response => response.ok && response.json())
+                .then(LEE => {
                     $('#answer').innerText = parseLee`${LEE}`;
                 })
                 .catch(console.error);
