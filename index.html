@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="en-us">
+<html lang="en-us">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -26,27 +26,41 @@
                 transform: translate(-50%, -50%);
             }
         </style>
+
+        <script>
+            const $ = selector => document.querySelector(selector);
+            const parseLee = (strings, LEE) => {
+                return LEE.leeIsSleeping ? 'YES' : 'NO';
+            };
+            const url = 'https://api.isleesleeping.com';
+
+            if ('fetch' in window) {
+                fetch(url)
+                    .then( response => response.ok && response.json() )
+                    .then( LEE => {
+                        $('#answer').innerText = parseLee`${LEE}`;
+                    })
+                    .catch(console.error);
+            } else {
+                const httpRequest = new XMLHttpRequest();
+
+                httpRequest.onreadystatechange = () => {
+                    if (
+                        httpRequest.readyState === XMLHttpRequest.DONE
+                        && httpRequest.status === 200
+                    ) {
+                        const LEE = JSON.parse(httpRequest.responseText);
+                        $('#answer').innerText = parseLee`${LEE}`;
+                    }
+                }
+
+                httpRequest.open('GET', url);
+                httpRequest.send();
+            }
+        </script>
     </head>
     <body>
-
         <h1 id="answer"></h1>
-
-        <script type="text/javascript">
-        const httpRequest = new XMLHttpRequest();
-
-        httpRequest.onreadystatechange = function() {
-            if (httpRequest.readyState === XMLHttpRequest.DONE) {
-                if (httpRequest.status === 200) {
-                    const response = JSON.parse(httpRequest.responseText)
-                    const displayText = response.leeIsSleeping ? 'YES.' : 'NO.';
-                    document.getElementById('answer').innerHTML = displayText;
-                }
-            }
-        }
-
-        httpRequest.open('GET', 'https://api.isleesleeping.com');
-        httpRequest.send();
-        </script>
     </body>
 </html>
 
