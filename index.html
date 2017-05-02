@@ -33,9 +33,8 @@
             const parseLee = (strings, LEE) => {
                 return LEE.leeIsSleeping ? 'YES.' : 'NO.';
             };
-            const url = 'https://api.isleesleeping.com';
 
-            fetch(url)
+            fetch('https://api.isleesleeping.com')
                 .then( response => response.ok && response.json() )
                 .then( LEE => {
                     $('#answer').innerText = parseLee`${LEE}`;
