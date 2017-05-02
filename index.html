@@ -27,6 +27,7 @@
             }
         </style>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
         <script>
             const $ = selector => document.querySelector(selector);
             const parseLee = (strings, LEE) => {
@@ -34,29 +35,12 @@
             };
             const url = 'https://api.isleesleeping.com';
 
-            if ('fetch' in window) {
-                fetch(url)
-                    .then( response => response.ok && response.json() )
-                    .then( LEE => {
-                        $('#answer').innerText = parseLee`${LEE}`;
-                    })
-                    .catch(console.error);
-            } else {
-                const httpRequest = new XMLHttpRequest();
-
-                httpRequest.onreadystatechange = () => {
-                    if (
-                        httpRequest.readyState === XMLHttpRequest.DONE
-                        && httpRequest.status === 200
-                    ) {
-                        const LEE = JSON.parse(httpRequest.responseText);
-                        $('#answer').innerText = parseLee`${LEE}`;
-                    }
-                }
-
-                httpRequest.open('GET', url);
-                httpRequest.send();
-            }
+            fetch(url)
+                .then( response => response.ok && response.json() )
+                .then( LEE => {
+                    $('#answer').innerText = parseLee`${LEE}`;
+                })
+                .catch(console.error);
         </script>
     </head>
     <body>
