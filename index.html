@@ -8,14 +8,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <style>
-        body {
-            margin: 200px 20px 0;
-        }
-        h1 {
-            text-align: center;
-            font-family: "Arial Black", Gadget, sans-serif;
-            font-size: 5rem;
-        }
+            body,
+            html {
+                height: 100%;
+                margin: 0;
+                position: relative;
+            }
+
+            h1 {
+                font-family: "Arial Black", Gadget, sans-serif;
+                font-size: 5rem;
+                line-height: 1;
+                margin: 0;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
         </style>
     </head>
     <body>
